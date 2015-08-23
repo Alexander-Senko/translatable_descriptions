@@ -11,6 +11,8 @@ module TranslatableDescriptions::Describable
 
 		delegate *TranslatableDescriptions.editable_attributes, to: :description
 
+		attach_descriptions
+
 		I18n.available_locales.each &method(:attach_descriptions)
 	end
 
@@ -49,10 +51,5 @@ module TranslatableDescriptions::Describable
 				end
 			}
 		end
-	end
-
-	def description lang = I18n.locale
-		send "description_#{lang}" or
-			send "build_description_#{lang}"
 	end
 end
