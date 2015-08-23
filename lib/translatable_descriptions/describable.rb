@@ -16,11 +16,11 @@ module TranslatableDescriptions::Describable
 				has_one :"description_#{lang}_relation", -> { where(
 					target_type: Description,
 					target_id:   Description.in_language(lang)
-				)}, reflections[
-					reflections[:descriptions].options[:through]
-				].options
+				)}, reflect_on_association(
+					reflect_on_association(:descriptions).options[:through]
+				).options
 
-				has_one :"description_#{lang}", reflections[:descriptions].options.merge({
+				has_one :"description_#{lang}", reflect_on_association(:descriptions).options.merge({
 					through:   :"description_#{lang}_relation",
 					dependent: :destroy,
 				})
