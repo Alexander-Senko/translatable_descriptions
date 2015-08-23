@@ -40,11 +40,14 @@ module TranslatableDescriptions::Describable
 					).reject(&:blank?).blank?
 				}
 
-			define_method "build_#{association_name}" do |attributes = {}|
-				descriptions.build attributes.merge(
-					lang: lang || I18n.locale
-				)
-			end
+			# HACK for Rails that misses some methods for has_one :through associations
+			%w[ build create create! ].each &-> (method) {
+				define_method method.sub /(\W*)$/, "_#{association_name}\\1" do |attributes = {}|
+					descriptions.send method, attributes.merge(
+						lang: lang || I18n.locale
+					)
+				end
+			}
 		end
 	end
 
