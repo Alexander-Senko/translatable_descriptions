@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 	s.version     = TranslatableDescriptions::VERSION
 	s.authors     = [ 'Alexander Senko' ]
 	s.email       = [ 'Alexander.Senko@gmail.com' ]
-	s.homepage    = 'TODO'
-	s.summary     = 'TODO: Summary of TranslatableDescriptions.'
-	s.description = 'TODO: Description of TranslatableDescriptions.'
+	s.homepage    = "https://github.com/softpro/#{s.name}"
+	s.summary     = 'Rails engine to manage localized text in models.'
+	s.description = 'Adds multilingual text attributes to Rails models using a separate table.'
 
 	s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']
 
