@@ -11,6 +11,11 @@ module TranslatableDescriptions::Describable
 
 		delegate *TranslatableDescriptions.editable_attributes, to: :description
 
+		after_destroy do
+			descriptions.each &:destroy
+			descriptions.destroy_all
+		end
+
 		attach_descriptions
 
 		I18n.available_locales.each &method(:attach_descriptions)
@@ -31,8 +36,7 @@ module TranslatableDescriptions::Describable
 			has_one association_name, -> { where(
 				lang: lang || I18n.locale
 			)}, reflect_on_association(:descriptions).options.merge({
-				through:   through_association_name,
-				dependent: :destroy,
+				through: through_association_name,
 			})
 
 			accepts_nested_attributes_for association_name,
